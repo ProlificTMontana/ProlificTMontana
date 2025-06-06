@@ -7,7 +7,7 @@
 
 ## 🔐 About Me
 
-I'm a 24-year-old cybersecurity enthusiast with a National Diploma in Information Technology and hands-on experience in cyber defense and web development. I’m passionate about protecting digital infrastructure, conducting penetration tests, and designing user-friendly, secure applications.
+I'm a 24-year-old cybersecurity enthusiast with hands-on experience in cyber defense and web development. I’m passionate about protecting digital infrastructure, conducting penetration tests, and designing user-friendly, secure applications.
 
 I've recently completed an internship at **Hack Secure**, where I simulated real-world attacks and analyzed network traffic using tools like **Wireshark**, **Metasploit**, and **PE Explorer**. I bring a balance of **defensive and offensive security skills**, backed by development expertise in **Python**, **JavaScript**, **React**, **Node.js**, and more.
 
