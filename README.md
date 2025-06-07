@@ -42,7 +42,7 @@ I've recently completed an internship at **Hack Secure**, where I simulated real
 
 Here are some of the projects I'm working on or contributing to:
 
-- 🔗 [Cybersecurity Tools & Scripts](https://github.com/ProlificTMontana)
+- 🔗 [Cybersecurity Tools & Scripts](https://github.com/ProlificTMontana?tab=repositories)
 - 🌐 Web App Projects using modern frontend frameworks
 - 📡 Automation tools for penetration testing and API integrations
 
