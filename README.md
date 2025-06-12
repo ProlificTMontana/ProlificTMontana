@@ -1,6 +1,6 @@
 # 👋 Hello! I'm Tony Tabwa
 
-🚀 **Cybersecurity Junior Analyst** | 🧠 Analytical Thinker | 💻 Aspiring Full-Stack Developer  
+🚀 **Cybersecurity Junior Analyst** | 🧠 Analytical Thinker | 💻 Full-Stack Developer  
 🌍 Based in Pretoria, South Africa | 📫 tabwatony7@gmail.com | 🔗 [GitHub: ProlificTMontana](https://github.com/ProlificTMontana)
 
 ---
