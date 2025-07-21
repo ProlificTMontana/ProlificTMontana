@@ -13,19 +13,27 @@
 --- 
 
 ## 🧰 Experience
-- **Red Team Internship:**
-  - Simulated cyber-attacks to strengthen security
-  - Analyzed network traffic for vulnerabilities
+- **I.T Support Internship:**
+  - Provided first-line support to 100+ users and managed Microsoft 365/Azure AD accounts.
+  - Assisted with firewall setup, network segmentation, and Wi-Fi security.
 
+- **Red Team Internship:**
+  - Simulated cyber-attacks to strengthen security. 
+  - Analyzed network traffic for vulnerabilities and patched them. 
+
+- **Freelance Tech Admin / Web Developer:**
+  - Managed Microsoft 365 for small businesses and delivered remote IT support.
+  - Deployed secure web apps using CI/CD pipelines and Git.
+    
 --- 
 
 ##  💡 Skills
 - **🔍Cybersecurity:**
-  - Knowledge of tools like Metasploit, Nmap, Burp Suite and Wireshark
-  - Proficient in vulnerability assessments and incident response
+  - Knowledge of tools like *Metasploit, Nmap, Burp Suite and Wireshark*
+  - Proficient in *vulnerability assessments and incident response*
 
 - **🧪Web Development:**
-  - Experienced with HTML, CSS, JavaScript, React, PHP and Node.js
+  - Experienced with *HTML, CSS, JavaScript, React, PHP and Node.js*
   
 - **⚙️Coding Languages:**
   - Python, Java, C++, C#, Bash, and VB.NET
