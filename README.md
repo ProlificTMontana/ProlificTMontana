@@ -1,4 +1,4 @@
-# 👋 Tony Tabwa
+# Hi, I'm Tony Tabwa
 
 **📍 Location:** Pretoria, South Africa  
 **📧 Contact:** tabwatony7@gmail.com  
