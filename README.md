@@ -62,7 +62,7 @@ I'm a 24-year-old **Cybersecurity Junior Analyst (Penetration Tester)** and **Fu
 ---
 
 ## 🎓 Education & Certifications
-- **[Relevant Degree or Certification, e.g., B.Sc. in Computer Science or CompTIA Security+]** (Add your academic background or certifications here for credibility)
+- **National Diploma in Information Technology, Cisco Ethical Hacker, Blue Team Junior Analyst Pathway, Junior Cybersecurity Analyst Pathway**
 - Ongoing learning in ethical hacking and advanced web development through platforms like TryHackMe and freeCodeCamp.
 
 ---
