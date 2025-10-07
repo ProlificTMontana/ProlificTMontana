@@ -30,8 +30,12 @@ I'm a 25-year-old **Cybersecurity Junior Analyst (Penetration Tester)** and **Fu
 - Delivered remote IT support, resolving issues efficiently for diverse clients.
 - Designed and deployed secure web applications using modern CI/CD pipelines and Git for version control.
 
----
+### Full Stack Developer (CURRENTLY)
+- Implemented CI/CD pipelines with Git for version control in secure web app deployments, streamlining development cycles and reducing downtime.
+- Developed and deployed full stack web applications for small businesses, integrating Microsoft 365 APIs to optimize workflows and enhance data security using modern frameworks and best practices.
 
+  
+---
 ## 💡 Skills
 
 ### 🔍 Cybersecurity
