@@ -2,7 +2,7 @@
 
 **📍 Location:** Pretoria, South Africa  
 **📧 Contact:** tabwatony7@gmail.com  
-**🔗 Portfolio:** [ProlificTMontana](https://prolifictmontana.github.io/tony.github.io/)  
+**🔗 Portfolio:** [ProlificTMontana](https://tony-github-io.vercel.app/)  
 **💼 LinkedIn:** [tony-tabwa](https://www.linkedin.com/in/tony-tabwa-7145b0140)  
 **🐙 GitHub:** [ProlificTMontana](https://github.com/ProlificTMontana)  
 
