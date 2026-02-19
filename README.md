@@ -9,7 +9,7 @@
 ---
 
 ## 🔐 About Me
-I'm a 25-year-old **Cybersecurity Junior Analyst (Penetration Tester)** and **Full-Stack Developer** based in Pretoria, South Africa. My passion lies in securing digital environments and building robust, user-friendly applications. I thrive on solving complex challenges and preventing issues before they arise.
+I'm a 25-year-old **Cybersecurity Junior Analyst (Penetration Tester)** and **Full-Stack Engineer** based in Pretoria, South Africa. My passion lies in securing digital environments and building robust, user-friendly applications. I thrive on solving complex challenges and preventing issues before they arise.
 
 ---
 
@@ -49,7 +49,7 @@ I'm a 25-year-old **Cybersecurity Junior Analyst (Penetration Tester)** and **Fu
 - **DevOps:** CI/CD pipelines, Docker, Git
 
 ### ⚙️ Programming Languages
-- Python, Java, C++, C#, Bash, VB.NET, Next.js
+- Python, Java, C++, C#, Bash, VB.NET, Next.js, React Native
 
 ### 🛠️ Other Technical Skills
 - Cloud: Azure AD, Microsoft 365 administration
