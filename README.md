@@ -1,19 +1,19 @@
 # Hi, I'm Tony Tabwa
 
-**📍 Location:** Pretoria, South Africa  
-**📧 Contact:** tabwatony7@gmail.com  
-**🔗 Portfolio:** [ProlificTMontana](https://tony-github-io.vercel.app/)  
-**💼 LinkedIn:** [tony-tabwa](https://www.linkedin.com/in/tony-tabwa-7145b0140)  
-**🐙 GitHub:** [ProlificTMontana](https://github.com/ProlificTMontana)  
+**Location:** Pretoria, South Africa  
+**Contact:** tabwatony7@gmail.com  
+**Portfolio:** [ProlificTMontana](https://tony-github-io.vercel.app/)  
+**LinkedIn:** [tony-tabwa](https://www.linkedin.com/in/tony-tabwa-7145b0140)  
+**GitHub:** [ProlificTMontana](https://github.com/ProlificTMontana)  
 
 ---
 
-## 🔐 About Me
+## About Me
 I'm a 25-year-old **Cybersecurity Junior Analyst (Penetration Tester)** and **Full-Stack Engineer** based in Pretoria, South Africa. My passion lies in securing digital environments and building robust, user-friendly applications. I thrive on solving complex challenges and preventing issues before they arise.
 
 ---
 
-## 🧰 Experience
+## Experience
 
 ### I.T Support Internship
 - Provided first-line technical support to over 100 users, ensuring minimal downtime.
@@ -36,42 +36,42 @@ I'm a 25-year-old **Cybersecurity Junior Analyst (Penetration Tester)** and **Fu
 
   
 ---
-## 💡 Skills
+## Skills
 
-### 🔍 Cybersecurity
+### Cybersecurity
 - **Tools:** Metasploit, Nmap, Burp Suite, Wireshark
 - **Expertise:** Vulnerability assessments, penetration testing, incident response, and threat analysis
 - **Frameworks:** Familiar with OWASP, NIST, and MITRE ATT&CK
 
-### 🧪 Web Development
+### Web Development
 - **Frontend:** HTML, CSS, JavaScript, React, Next.js
 - **Backend:** Node.js, PHP, Firebase, Supabase
 - **DevOps:** CI/CD pipelines, Docker, Git
 
-### ⚙️ Programming Languages
+### Programming Languages
 - Python, Java, C++, C#, Bash, VB.NET, Next.js, React Native
 
-### 🛠️ Other Technical Skills
+###  Other Technical Skills
 - Cloud: Azure AD, Microsoft 365 administration
 - Networking: Firewall configuration, network segmentation
 - Automation: Scripting for penetration testing and API integration
 
 ---
 
-## 🖥️ Current Projects
+## Current Projects
 - **Cybersecurity Tools:** Developing scripts for vulnerability scanning and automated penetration testing.
 - **Web Applications:** Building responsive, secure web apps with React and Node.js.
 - **Automation Tools:** Creating solutions for streamlined API integration and testing workflows.
 
 ---
 
-## 🎓 Education & Certifications
+## Education & Certifications
 - **National Diploma in Information Technology, Cisco Ethical Hacker, Blue Team Junior Analyst Pathway, Junior Cybersecurity Analyst Pathway**
 - Ongoing learning in ethical hacking and advanced web development through platforms like TryHackMe and freeCodeCamp.
 
 ---
 
-## 🤝 Let's Collaborate!
+## Let's Collaborate!
 I'm open to:
 - Contributing to **open-source cybersecurity and web development projects**.
 - Tackling **tech challenges** in penetration testing or full-stack development.
@@ -85,7 +85,7 @@ Feel free to reach out via [email](mailto:tabwatony7@gmail.com) or connect with 
 
 ---
 
-## 🏆 Notable Achievements
+## Notable Achievements
 - Successfully identified and mitigated critical vulnerabilities during red team exercises.
 - Deployed a secure web application for a small business, improving their operational efficiency by 20%.
 - Automated repetitive IT support tasks, reducing resolution time by 30%.
