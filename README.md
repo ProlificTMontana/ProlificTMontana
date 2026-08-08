@@ -44,12 +44,12 @@ I'm a 25-year-old **Cybersecurity Junior Analyst (Penetration Tester)** and **Fu
 - **Frameworks:** Familiar with OWASP, NIST, and MITRE ATT&CK
 
 ### Web Development
-- **Frontend:** HTML, CSS, JavaScript, React, Next.js
-- **Backend:** Node.js, PHP, Firebase, Supabase
+- **Frontend:** HTML, CSS, JavaScript, React, Next.js, React Native
+- **Backend:** Node.js, PHP, Firebase, Supabase, FastAPI
 - **DevOps:** CI/CD pipelines, Docker, Git
 
 ### Programming Languages
-- Python, Java, C++, C#, Bash, VB.NET, Next.js, React Native
+- Python, Java, C++, C#, Bash, VB.NET, TypeScript
 
 ###  Other Technical Skills
 - Cloud: Azure AD, Microsoft 365 administration
