@@ -9,7 +9,7 @@
 ---
 
 ## About Me
-I'm a 25-year-old **Cybersecurity Junior Analyst (Penetration Tester)** and **Full-Stack Engineer** based in Pretoria, South Africa. My passion lies in securing digital environments and building robust, user-friendly applications. I thrive on solving complex challenges and preventing issues before they arise.
+I'm a 26-year-old **Cybersecurity Junior Analyst (Penetration Tester)** and **Full-Stack Engineer** based in Pretoria, South Africa. My passion lies in securing digital environments and building robust, user-friendly applications. I thrive on solving complex challenges and preventing issues before they arise.
 
 ---
 
