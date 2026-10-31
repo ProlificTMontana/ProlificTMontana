@@ -91,7 +91,7 @@ ARSENAL = (
 )
 
 # Featured work -----------------------------------------------------------------
-# accent: one of red | violet | blue | mint | amber
+# accent: one of primary | neon | soft (see THEMES in design.py)
 PROJECTS = (
     {
         "slug": "accrediq",
@@ -99,7 +99,7 @@ PROJECTS = (
         "name": "AccredIQ",
         "kind": "SaaS · Compliance",
         "status": "LIVE",
-        "accent": "blue",
+        "accent": "primary",
         "desc": (
             "Compliance system of record for QCTO-accredited skills providers: accreditation scope, "
             "staff credentials, assessment, moderation and certification in one auditable, multi-tenant platform."
@@ -114,7 +114,7 @@ PROJECTS = (
         "name": "Red Team Automation Toolkit",
         "kind": "Offensive Tooling",
         "status": "OPEN SOURCE",
-        "accent": "red",
+        "accent": "neon",
         "desc": (
             "Operator platform for automating red team ops: CIDR scope enforcement, async Nmap recon "
             "with findings extraction, role-based access and OPSEC-safe audit logging."
@@ -129,7 +129,7 @@ PROJECTS = (
         "name": "OSINT Automation Tool",
         "kind": "Reconnaissance",
         "status": "OPEN SOURCE",
-        "accent": "violet",
+        "accent": "neon",
         "desc": (
             "Plugin-driven OSINT recon: Shodan host intelligence, HaveIBeenPwned breach checks and "
             "username enumeration across major social platforms, in a single Streamlit console."
@@ -144,7 +144,7 @@ PROJECTS = (
         "name": "AutoReserve Africa",
         "kind": "Marketplace · Cross-border",
         "status": "LIVE",
-        "accent": "mint",
+        "accent": "primary",
         "desc": (
             "Vehicle reservation and export marketplace connecting verified South African dealers with "
             "buyers in Zimbabwe, Zambia, Namibia, Botswana and beyond."

@@ -19,6 +19,7 @@ from design import (
     SVG,
     brand_gradient,
     card,
+    check_palette,
     chip,
     clip_round,
     dot_grid,
@@ -26,8 +27,6 @@ from design import (
     glow,
     gradient,
     icon,
-    icons,
-    legible,
     monogram,
     polar,
     pulse_dot,
@@ -53,12 +52,12 @@ def hero(theme: str) -> SVG:
     clip_round(doc, "cc", 0, 0, W, H, 24)
     card(doc, 0, 0, W, H, 24)
     doc.add('<g clip-path="url(#cc)">')
-    glow(doc, "g1", 120, -40, 560, t["red"], 1.0)
-    glow(doc, "g2", 1060, 470, 600, t["violet"], 1.0)
-    glow(doc, "g3", 940, 210, 260, t["blue"], 0.7)
+    glow(doc, "g1", 120, -40, 560, t["neon"], 1.0)
+    glow(doc, "g2", 1060, 470, 600, t["neon"], 1.0)
+    glow(doc, "g3", 940, 210, 260, t["soft"], 0.7)
     dot_grid(doc, "cc", 0, 0, W, H, 940, 210, 560)
     # slow scanline
-    gradient(doc, "scan", [(0, t["mint"], 0), (0.5, t["mint"], 0.07), (1, t["mint"], 0)], x2=0, y2=1)
+    gradient(doc, "scan", [(0, t["signal"], 0), (0.5, t["signal"], 0.07), (1, t["signal"], 0)], x2=0, y2=1)
     doc.add(
         f'<rect x="0" y="-140" width="{W}" height="140" fill="url(#scan)">'
         f'<animateTransform attributeName="transform" type="translate" values="0 0;0 {H + 140}" dur="7s" repeatCount="indefinite"/></rect>'
@@ -72,17 +71,28 @@ def hero(theme: str) -> SVG:
     doc.add(
         f'<rect x="{x0}.5" y="50.5" width="{fmt(pw)}" height="35" rx="17.5" fill="{t["surface"]}" stroke="{t["border2"]}"/>'
     )
-    pulse_dot(doc, x0 + 19, 68, t["mint"], 4.2)
+    pulse_dot(doc, x0 + 19, 68, t["signal"], 4.2)
     doc.add(doc.text(x0 + 34, 72.8, label, "mono", 13.5, t["muted"], ls=1.4))
 
     # ---- name + roles
-    doc.add(doc.text(x0 - 4, 180, C.NAME, "display", 88, t["text"], ls=-3))
+    first, _, last = C.NAME.partition(" ")
+    lead = text_width(first + " ", "display", 88, -3)
+    blur = 7 if theme == "dark" else 0
+    if blur:
+        doc.defs.append(
+            f'<filter id="neon" x="-20%" y="-40%" width="140%" height="180%">'
+            f'<feGaussianBlur stdDeviation="{blur}" result="b"/>'
+            f'<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>'
+        )
+    doc.add(doc.text(x0 - 4, 180, first, "display", 88, t["text"], ls=-3))
+    doc.add(doc.text(x0 - 4 + lead, 180, last, "display", 88, t["primary"], ls=-3,
+                     attrs='filter="url(#neon)"' if blur else ""))
     brand = brand_gradient(doc, "brand")
     doc.add(doc.spans(x0, 232, [(C.ROLES[0], brand), ("  /  ", t["dim"]), (C.ROLES[1], brand)], "body", 30))
 
     # ---- typing prompt
     py, ph = 272, 52
-    prompt = [("tony@tlt", t["mint"]), (":", t["dim"]), ("~", t["blue"]), ("$ ", t["muted"])]
+    prompt = [("tony@tlt", t["signal"]), (":", t["dim"]), ("~", t["soft"]), ("$ ", t["muted"])]
     psize = 18
     prompt_w = text_width("".join(s for s, _ in prompt), "mono", psize)
     adv = text_width("M", "mono", psize)
@@ -122,13 +132,13 @@ def hero(theme: str) -> SVG:
     ck_v = ";".join(fmt(tx + w + 2) for _, w in cursor_kf)
     doc.add(
         f'<rect class="cur" x="{fmt(tx + adv * len(C.TAGLINES[0]) + 2)}" y="{fmt(base_y - psize * 0.8)}" width="{fmt(adv * 0.62)}"'
-        f' height="{fmt(psize * 1.05)}" rx="1.5" fill="{t["mint"]}">'
+        f' height="{fmt(psize * 1.05)}" rx="1.5" fill="{t["signal"]}">'
         f'<animate attributeName="x" calcMode="discrete" dur="{fmt(T)}s" repeatCount="indefinite" keyTimes="{ck_t}" values="{ck_v}"/></rect>'
     )
 
     # ---- capability row
     cx = x0
-    for label, color in (("RED TEAM", t["red"]), ("SECURE SAAS", t["violet"]), ("AUTOMATION", t["blue"]), ("DEVSECOPS", t["mint"])):
+    for label, color in (("RED TEAM", t["primary"]), ("SECURE SAAS", t["neon"]), ("AUTOMATION", t["soft"]), ("DEVSECOPS", t["signal"])):
         doc.add(f'<rect x="{cx}" y="{366}" width="8" height="8" rx="2" fill="{color}" transform="rotate(45 {cx + 4} 370)"/>')
         doc.add(doc.text(cx + 18, 375, label, "mono", 14, t["muted"], ls=1.6))
         cx += 18 + text_width(label, "mono", 14, 1.6) + 28
@@ -158,16 +168,16 @@ def hero(theme: str) -> SVG:
         op = 0.34 * (1 - k / 36) ** 1.6
         sweep.append(
             f'<path d="M{rcx} {rcy}L{fmt(p0[0])} {fmt(p0[1])}A{R} {R} 0 0 1 {fmt(p1[0])} {fmt(p1[1])}Z"'
-            f' fill="{t["mint"]}" fill-opacity="{fmt(op)}"/>'
+            f' fill="{t["signal"]}" fill-opacity="{fmt(op)}"/>'
         )
     doc.add(
         f'<g clip-path="url(#rc)"><g>{"".join(sweep)}'
-        f'<path d="M{rcx} {rcy}H{rcx + R}" stroke="{t["mint"]}" stroke-width="1.6" stroke-opacity="0.9"/>'
+        f'<path d="M{rcx} {rcy}H{rcx + R}" stroke="{t["signal"]}" stroke-width="1.6" stroke-opacity="0.9"/>'
         f'<animateTransform attributeName="transform" type="rotate" from="0 {rcx} {rcy}" to="360 {rcx} {rcy}"'
         f' dur="{fmt(period)}s" repeatCount="indefinite"/></g></g>'
     )
-    blips = ((38, 0.62, "443/https", t["mint"]), (128, 0.82, "22/ssh", t["amber"]),
-             (212, 0.55, "5432/pg", t["blue"]), (300, 0.78, "3389/rdp", t["red"]))
+    blips = ((38, 0.62, "443/https", t["signal"]), (128, 0.82, "22/ssh", t["warn"]),
+             (212, 0.55, "5432/pg", t["soft"]), (300, 0.78, "3389/rdp", t["primary"]))
     for deg, rr, lab, color in blips:
         bx, by = polar(rcx, rcy, R * rr, deg)
         begin = fmt(deg / 360 * period)
@@ -181,7 +191,7 @@ def hero(theme: str) -> SVG:
     # core
     hexp = " ".join(f"{fmt(px)},{fmt(py_)}" for px, py_ in (polar(rcx, rcy, 15, a) for a in range(-90, 270, 60)))
     doc.add(f'<polygon points="{hexp}" fill="{t["bg"]}" stroke="url(#brand)" stroke-width="2"/>')
-    doc.add(f'<circle cx="{rcx}" cy="{rcy}" r="3.5" fill="{t["mint"]}"/>')
+    doc.add(f'<circle cx="{rcx}" cy="{rcy}" r="3.5" fill="{t["signal"]}"/>')
     # HUD corners
     for x, y, sx, sy in ((752, 28, 1, 1), (1172, 28, -1, 1), (752, 392, 1, -1), (1172, 392, -1, -1)):
         doc.add(f'<path d="M{x} {y + 16 * sy}V{y}H{x + 16 * sx}" stroke="{t["dim"]}" stroke-width="1.5"/>')
@@ -202,19 +212,19 @@ def header(theme: str, index: int, title: str, command: str) -> SVG:
     clip_round(doc, "cc", 0, 0, W, H, 16)
     card(doc, 0, 0, W, H, 16)
     doc.add('<g clip-path="url(#cc)">')
-    glow(doc, "g1", 0, H / 2, 300, t["red"], 0.7)
+    glow(doc, "g1", 0, H / 2, 300, t["neon"], 0.7)
     doc.add("</g>")
     cy = H / 2
     doc.add(f'<rect x="22.5" y="{fmt(cy - 16.5)}" width="51" height="33" rx="9" fill="{t["surface"]}" stroke="{t["border2"]}"/>')
-    doc.add(doc.text(48, cy + 5.5, f"{index:02d}", "monob", 15, t["red"], anchor="middle"))
+    doc.add(doc.text(48, cy + 5.5, f"{index:02d}", "monob", 15, t["primary"], anchor="middle"))
     doc.add(doc.text(92, cy + 10.5, title, "display", 30, t["text"], ls=-0.6))
     lx = 92 + text_width(title, "display", 30, -0.6) + 26
     cmd = f"$ {command}"
     cw = text_width(cmd, "mono", 15.5)
     rx = W - 28 - cw - 26
-    gradient(doc, "ln", [(0, t["red"], 0.9), (0.45, t["violet"], 0.45), (1, t["blue"], 0.05)])
+    gradient(doc, "ln", [(0, t["primary"], 0.9), (0.45, t["neon"], 0.45), (1, t["soft"], 0.05)])
     doc.add(f'<rect x="{fmt(lx)}" y="{fmt(cy - 0.75)}" width="{fmt(rx - lx)}" height="1.5" fill="url(#ln)"/>')
-    gradient(doc, "spark", [(0, t["mint"], 0), (0.5, t["mint"], 1), (1, t["mint"], 0)])
+    gradient(doc, "spark", [(0, t["signal"], 0), (0.5, t["signal"], 1), (1, t["signal"], 0)])
     doc.defs.append(f'<clipPath id="rule"><rect x="{fmt(lx)}" y="{fmt(cy - 6)}" width="{fmt(rx - lx)}" height="12"/></clipPath>')
     doc.add(
         f'<rect x="{fmt(lx - 70)}" y="{fmt(cy - 1.25)}" width="70" height="2.5" fill="url(#spark)" clip-path="url(#rule)">'
@@ -241,16 +251,16 @@ def terminal(theme: str) -> SVG:
     clip_round(doc, "cc", 0, 0, W, H, 18)
     card(doc, 0, 0, W, H, 18)
     doc.add('<g clip-path="url(#cc)">')
-    glow(doc, "g1", 210, 330, 340, t["violet"], 0.9)
+    glow(doc, "g1", 210, 330, 340, t["neon"], 0.9)
     doc.add(f'<rect x="0" y="0" width="{W}" height="46" fill="{t["surface2"]}"/>')
     doc.add(f'<path d="M0 46.5H{W}" stroke="{t["border"]}"/>')
     doc.add("</g>")
-    for i, c in enumerate((t["red"], t["amber"], t["mint"])):
+    for i, c in enumerate(("#ff5f57", "#febc2e", "#28c840")):
         doc.add(f'<circle cx="{26 + i * 20}" cy="23" r="6" fill="{c}" fill-opacity="0.9"/>')
     doc.add(doc.text(W / 2, 28.5, "tony@tlt: ~ — zsh — 120×32", "mono", 13.5, t["dim"], anchor="middle"))
 
     # command
-    doc.add(doc.spans(40, 92, [("tony@tlt", t["mint"]), (" ~ ", t["blue"]), ("❯ ", t["violet"]),
+    doc.add(doc.spans(40, 92, [("tony@tlt", t["signal"]), (" ~ ", t["soft"]), ("❯ ", t["neon"]),
                                ("neofetch", t["text"]), (" --profile", t["muted"])], "mono", 18))
 
     # shield logo
@@ -268,32 +278,32 @@ def terminal(theme: str) -> SVG:
         )
 
     brand = brand_gradient(doc, "brand")
-    gradient(doc, "sfill", [(0, t["red"], 0.10), (1, t["blue"], 0.04)], x2=0.4, y2=1)
+    gradient(doc, "sfill", [(0, t["primary"], 0.10), (1, t["soft"], 0.04)], x2=0.4, y2=1)
     doc.add(f'<path d="{shield(1)}" fill="url(#sfill)" stroke="{brand}" stroke-width="2.5" stroke-linejoin="round"/>')
     doc.add(f'<path d="{shield(0.8)}" stroke="{t["border2"]}" stroke-dasharray="3 5" stroke-linejoin="round"/>')
     gy = top + sh * 0.53
     doc.add(doc.text(cx - 6, gy, ">", "monob", 64, brand, anchor="end"))
-    doc.add(f'<rect class="cur" x="{cx + 2}" y="{fmt(gy - 6)}" width="36" height="8" rx="2" fill="{t["mint"]}"/>')
+    doc.add(f'<rect class="cur" x="{cx + 2}" y="{fmt(gy - 6)}" width="36" height="8" rx="2" fill="{t["signal"]}"/>')
     doc.add(doc.text(cx, top + sh + 40, "SECURE · BY · DESIGN", "mono", 13, t["dim"], anchor="middle", ls=2.2))
 
     # info block
     ix = 400
-    doc.add(doc.spans(ix, 146, [("tony", t["red"]), ("@", t["dim"]), ("tabwa", t["blue"])], "monob", 24))
+    doc.add(doc.spans(ix, 146, [("tony", t["primary"]), ("@", t["dim"]), ("tabwa", t["soft"])], "monob", 24))
     doc.add(f'<rect x="{ix}" y="159" width="{fmt(text_width("tony@tabwa", "monob", 24))}" height="2" rx="1" fill="{t["border2"]}"/>')
     for i, (k, v) in enumerate(C.FETCH):
         y = rows_top + 22 + i * row_h
         key = (k + " ").ljust(key_w, ".") if k else " " * key_w
-        parts = [(key[: len(k)], t["red"]), (key[len(k):], t["dim"]), (" " + v, t["text"])]
+        parts = [(key[: len(k)], t["primary"]), (key[len(k):], t["dim"]), (" " + v, t["text"])]
         if k == "Mindset":
-            parts[-1] = (" " + v, t["mint"])
+            parts[-1] = (" " + v, t["signal"])
         doc.add(doc.spans(ix, y, parts, "mono", 18))
     # palette
     py = rows_top + row_h * len(C.FETCH) + 22
-    for i, c in enumerate((t["red"], t["amber"], t["mint"], t["blue"], t["violet"], t["muted"], t["text"], t["border2"])):
+    for i, c in enumerate((t["primary"], t["warn"], t["signal"], t["soft"], t["neon"], t["muted"], t["text"], t["border2"])):
         doc.add(f'<rect x="{ix + i * 40}" y="{py}" width="32" height="16" rx="4" fill="{c}"/>')
     # trailing prompt
     ly = H - 34
-    doc.add(doc.spans(40, ly, [("tony@tlt", t["mint"]), (" ~ ", t["blue"]), ("❯ ", t["violet"])], "mono", 18))
+    doc.add(doc.spans(40, ly, [("tony@tlt", t["signal"]), (" ~ ", t["soft"]), ("❯ ", t["neon"])], "mono", 18))
     px = 40 + text_width("tony@tlt ~ ❯ ", "mono", 18)
     doc.add(f'<rect class="cur" x="{fmt(px)}" y="{ly - 15}" width="10.5" height="20" rx="1.5" fill="{t["text"]}"/>')
     return doc
@@ -341,10 +351,10 @@ def arsenal(theme: str) -> SVG:
     clip_round(doc, "cc", 0, 0, W, H, 18)
     card(doc, 0, 0, W, H, 18)
     doc.add('<g clip-path="url(#cc)">')
-    glow(doc, "g1", W, 0, 520, t["blue"], 0.7)
-    glow(doc, "g2", 0, H, 480, t["red"], 0.6)
+    glow(doc, "g1", W, 0, 520, t["soft"], 0.7)
+    glow(doc, "g2", 0, H, 480, t["neon"], 0.6)
     doc.add("</g>")
-    accents = (t["red"], t["violet"], t["blue"], t["mint"], t["amber"])
+    accents = (t["primary"], t["neon"], t["soft"])
     for bi, (cat, count, rows, by) in enumerate(blocks):
         if bi:
             doc.add(f'<path d="M{pad_x} {by - 18}.5H{W - pad_x}" stroke="{t["border"]}" stroke-dasharray="2 4"/>')
@@ -361,10 +371,9 @@ def arsenal(theme: str) -> SVG:
                     f' fill="{t["surface"]}" stroke="{t["border"]}"/>'
                 )
                 if slug:
-                    col = legible("#" + icons()[slug]["hex"], t["surface"], t["text"])
-                    icon(doc, slug, x + 14, ty + 13.5, 21, col)
+                    icon(doc, slug, x + 14, ty + 13.5, 21, t["primary"])  # monochrome, like the portfolio
                 else:
-                    monogram(doc, mono, x + 14, ty + 13.5, 21, ac)
+                    monogram(doc, mono, x + 14, ty + 13.5, 21, t["primary"])
                 doc.add(doc.text(x + 46, ty + 30, name, "body", 17, t["text"]))
                 x += w + gap
     return doc
@@ -384,7 +393,7 @@ def project(theme: str, p: dict) -> SVG:
     clip_round(doc, "cc", m, m, cw, ch, 18)
     card(doc, m, m, cw, ch, 18)
     doc.add('<g clip-path="url(#cc)">')
-    glow(doc, "g1", W - 40, 0, 360, ac, 1.1)
+    glow(doc, "g1", W - 40, 0, 360, t["neon"], 1.0)  # lime haze reads olive; use neon
     gradient(doc, "top", [(0, ac, 0), (0.5, ac, 0.9), (1, ac, 0)])
     doc.add(f'<rect x="{m}" y="{m}" width="{cw}" height="2" fill="url(#top)"/>')
     # faint oversized mark watermark
@@ -392,16 +401,16 @@ def project(theme: str, p: dict) -> SVG:
     doc.add("</g>")
 
     x0, y0 = m + 30, m + 30
-    gradient(doc, "mk", [(0, ac, 1), (1, t["violet"] if p["accent"] != "violet" else t["blue"], 1)], x2=1, y2=1)
+    gradient(doc, "mk", [(0, ac, 1), (1, t["neon"] if p["accent"] != "neon" else t["primary"], 1)], x2=1, y2=1)
     doc.add(f'<rect x="{x0}" y="{y0}" width="52" height="52" rx="14" fill="url(#mk)"/>')
-    doc.add(doc.text(x0 + 26, y0 + 33.5, p["mark"], "display", 20, "#ffffff", anchor="middle", ls=0.4))
+    doc.add(doc.text(x0 + 26, y0 + 33.5, p["mark"], "display", 20, t["on_accent"], anchor="middle", ls=0.4))
     doc.add(doc.text(x0 + 68, y0 + 18, p["kind"].upper(), "mono", 13, t["muted"], ls=1.2))
     doc.add(doc.text(x0 + 68, y0 + 48, p["name"], "display", 25, t["text"], ls=-0.4))
     # status
     status = p["status"]
     sw = text_width(status, "mono", 12.5, 1.2) + 42
     sx = W - m - 26 - sw
-    dot = t["mint"] if status == "LIVE" else t["amber"]
+    dot = t["signal"] if status == "LIVE" else t["warn"]
     doc.add(f'<rect x="{fmt(sx + 0.5)}" y="{y0 - 8}.5" width="{fmt(sw - 1)}" height="29" rx="14.5" fill="{t["surface"]}" stroke="{t["border2"]}"/>')
     pulse_dot(doc, sx + 16, y0 + 6.5, dot, 3.6)
     doc.add(doc.text(sx + 29, y0 + 11, status, "mono", 12.5, t["muted"], ls=1.2))
@@ -453,21 +462,21 @@ def timeline(theme: str) -> SVG:
     clip_round(doc, "cc", 0, 0, W, H, 18)
     card(doc, 0, 0, W, H, 18)
     doc.add('<g clip-path="url(#cc)">')
-    glow(doc, "g1", W - 100, 40, 420, t["mint"], 0.7)
+    glow(doc, "g1", W - 100, 40, 420, t["signal"], 0.7)
     doc.add("</g>")
-    gradient(doc, "rail", [(0, t["border2"], 1), (0.6, t["violet"], 0.9), (1, t["mint"], 1)])
+    gradient(doc, "rail", [(0, t["border2"], 1), (0.6, t["neon"], 0.9), (1, t["signal"], 1)])
     doc.add(f'<rect x="{px}" y="{rail_y - 1}" width="{W - 2 * px}" height="2" rx="1" fill="url(#rail)"/>')
     for i, (e, (title, summ, top, sy)) in enumerate(zip(C.EXPERIENCE, cols)):
         x = px + i * (col + gap)
         now = i == n - 1
-        color = t["mint"] if now else t["violet"] if i == n - 2 else t["dim"]
+        color = t["signal"] if now else t["neon"] if i == n - 2 else t["dim"]
         stage = "NOW" if now else f"STAGE {i + 1:02d}"
-        doc.add(doc.text(x, rail_y - 24, stage, "mono", 13, t["mint"] if now else t["muted"], ls=1.6))
+        doc.add(doc.text(x, rail_y - 24, stage, "mono", 13, t["signal"] if now else t["muted"], ls=1.6))
         if now:
-            pulse_dot(doc, x + 7, rail_y, t["mint"], 6)
+            pulse_dot(doc, x + 7, rail_y, t["signal"], 6)
         else:
             doc.add(f'<circle cx="{fmt(x + 7)}" cy="{rail_y}" r="6" fill="{t["bg"]}" stroke="{color}" stroke-width="2.5"/>')
-        chip(doc, x, top - 30, e["tag"], size=12.5, h=26, pad=10, color=t["mint"] if now else t["muted"])
+        chip(doc, x, top - 30, e["tag"], size=12.5, h=26, pad=10, color=t["signal"] if now else t["muted"])
         for j, ln in enumerate(title):
             doc.add(doc.text(x, top + 22 + j * 28, ln, "display", 22, t["text"], ls=-0.3))
         for j, ln in enumerate(summ):
@@ -488,7 +497,7 @@ def impact(theme: str) -> SVG:
         clip_round(doc, f"c{i}", x, 0, cw, H, 18)
         card(doc, x, 0, cw, H, 18)
         doc.add(f'<g clip-path="url(#c{i})">')
-        glow(doc, f"g{i}", x + cw, 0, 260, (t["red"], t["violet"], t["blue"])[i % 3], 0.9)
+        glow(doc, f"g{i}", x + cw, 0, 260, (t["neon"], t["soft"], t["neon"])[i % 3], 0.9)
         doc.add("</g>")
         doc.add(doc.text(x + 28, 88, num, "display", 54, brand, ls=-2))
         nx = x + 28 + text_width(num, "display", 54, -2) + 18
@@ -532,7 +541,7 @@ def button(theme: str, key: str, primary: bool) -> SVG:
     if primary:
         brand = brand_gradient(doc, "brand")
         doc.add(f'<rect x="{m}" y="{m}" width="{bw}" height="{bh}" rx="14" fill="{brand}"/>')
-        fg, sub = "#ffffff", "#ffffff"
+        fg, sub = t["on_accent"], t["on_accent"]
     else:
         doc.add(f'<rect x="{m + 0.5}" y="{m + 0.5}" width="{bw - 1}" height="{bh - 1}" rx="14" fill="{t["bg"]}" stroke="{t["border2"]}"/>')
         fg, sub = t["text"], t["muted"]
@@ -559,8 +568,8 @@ def footer(theme: str) -> SVG:
     clip_round(doc, "cc", 0, 0, W, H, 24)
     card(doc, 0, 0, W, H, 24)
     doc.add('<g clip-path="url(#cc)">')
-    glow(doc, "g1", W / 2, H + 60, 520, t["violet"], 1.1)
-    glow(doc, "g2", 0, 0, 380, t["red"], 0.7)
+    glow(doc, "g1", W / 2, H + 60, 520, t["neon"], 1.1)
+    glow(doc, "g2", 0, 0, 380, t["neon"], 0.7)
     dot_grid(doc, "cc", 0, 0, W, H, W / 2, H, 640)
     # signal wave with travelling highlight
     pts = []
@@ -585,7 +594,7 @@ def footer(theme: str) -> SVG:
     x = (W - total) / 2
     for s, w in zip(C.OPEN_TO, widths):
         doc.add(f'<rect x="{fmt(x + 0.5)}" y="224.5" width="{fmt(w - 1)}" height="35" rx="17.5" fill="{t["surface"]}" stroke="{t["border2"]}"/>')
-        doc.add(f'<circle cx="{fmt(x + 17)}" cy="242" r="3.6" fill="{t["mint"]}"/>')
+        doc.add(f'<circle cx="{fmt(x + 17)}" cy="242" r="3.6" fill="{t["signal"]}"/>')
         doc.add(doc.text(x + 29, 247, s, "mono", 14.5, t["muted"]))
         x += w + 12
     return doc
@@ -722,6 +731,7 @@ def readme() -> str:
 
 
 def main() -> int:
+    check_palette()
     ASSETS.mkdir(exist_ok=True)
     written = []
     for name, fn in assets().items():

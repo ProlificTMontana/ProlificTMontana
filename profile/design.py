@@ -29,42 +29,49 @@ FONT_DIR = ROOT / "fonts"
 # Themes
 # --------------------------------------------------------------------------
 
-THEMES: dict[str, dict[str, str | float]] = {
+# Palette aligned with tony-github-io.vercel.app (lime #BEFF3D) and
+# tonylinktech.co.za (neon #39FF14, mint #ABFF9C) on green-black.
+THEMES: dict[str, dict] = {
     "dark": {
-        "bg": "#0a0e15",
-        "surface": "#0f151f",
-        "surface2": "#141c29",
-        "border": "#1c2636",
-        "border2": "#2a3750",
-        "text": "#eaf0f8",
-        "muted": "#93a1b5",
-        "dim": "#5a6679",
-        "grid": "#1f2b3d",
-        "red": "#ff4d6a",
-        "violet": "#a259ff",
-        "blue": "#4f8cff",
-        "mint": "#2ee6a6",
-        "amber": "#ffb547",
-        "glow": 0.32,
-        "chip": "#121a26",
+        "bg": "#0a0f0d",
+        "surface": "#0f1613",
+        "surface2": "#131c17",
+        "border": "#1a2620",
+        "border2": "#28392e",
+        "text": "#ecf5e9",
+        "muted": "#97a89b",
+        "dim": "#5c6d61",
+        "grid": "#1a2820",
+        "primary": "#beff3d",  # portfolio lime
+        "neon": "#39ff14",  # TLT neon green
+        "soft": "#abff9c",  # TLT mint
+        "signal": "#39ff14",  # live / status / cursor
+        "warn": "#ffc247",
+        "on_accent": "#08110a",  # text on filled accent surfaces
+        "glow": 0.22,
+        "chip": "#0e1511",
+        # monochrome ramp for data series (languages)
+        "ramp": ("#beff3d", "#39ff14", "#abff9c", "#7cc42a", "#22b60c", "#6e9c74", "#3d5a45"),
     },
     "light": {
         "bg": "#ffffff",
-        "surface": "#f8fafd",
-        "surface2": "#f0f4f9",
-        "border": "#e1e7ef",
-        "border2": "#cbd5e1",
-        "text": "#0d1520",
-        "muted": "#4e5b6e",
-        "dim": "#8b97a8",
-        "grid": "#dfe6ef",
-        "red": "#e0193f",
-        "violet": "#7c2ff0",
-        "blue": "#2457e6",
-        "mint": "#06966a",
-        "amber": "#b86e00",
-        "glow": 0.12,
-        "chip": "#f3f6fa",
+        "surface": "#f6faf3",
+        "surface2": "#edf5e8",
+        "border": "#dce8d5",
+        "border2": "#c2d5b7",
+        "text": "#0a140c",
+        "muted": "#4b5d4f",
+        "dim": "#84958a",
+        "grid": "#d9e6d1",
+        "primary": "#4c7a00",
+        "neon": "#14930a",
+        "soft": "#0d7a45",
+        "signal": "#11990f",
+        "warn": "#b06a00",
+        "on_accent": "#ffffff",
+        "glow": 0.13,
+        "chip": "#f1f8ec",
+        "ramp": ("#4c7a00", "#14930a", "#0d7a45", "#8bb83a", "#5fa356", "#2f5e36", "#a8bfa2"),
     },
 }
 
@@ -192,9 +199,16 @@ def contrast(a: str, b: str) -> float:
     return (la + 0.05) / (lb + 0.05)
 
 
-def legible(color: str, bg: str, fallback: str, minimum: float = 3.0) -> str:
-    """Return ``color`` if it reads on ``bg``, else ``fallback``."""
-    return color if contrast(color, bg) >= minimum else fallback
+def check_palette() -> None:
+    """Fail the build if a theme edit breaks WCAG contrast on card surfaces."""
+    rules = {"text": 4.5, "muted": 4.5, "primary": 3.0, "neon": 3.0, "soft": 3.0, "signal": 3.0, "warn": 3.0}
+    for name, t in THEMES.items():
+        for key, minimum in rules.items():
+            ratio = contrast(t[key], t["surface"])
+            if ratio < minimum:
+                raise ValueError(f"{name}.{key} {t[key]} is {ratio:.2f}:1 on surface (needs {minimum}:1)")
+        if contrast(t["on_accent"], t["primary"]) < 4.5:
+            raise ValueError(f"{name}.on_accent is not legible on primary")
 
 
 # --------------------------------------------------------------------------
@@ -310,7 +324,7 @@ def gradient(doc: SVG, gid: str, stops: list[tuple[float, str, float]], x2: floa
 
 def brand_gradient(doc: SVG, gid: str = "brand") -> str:
     t = doc.t
-    gradient(doc, gid, [(0, t["red"], 1), (0.5, t["violet"], 1), (1, t["blue"], 1)])
+    gradient(doc, gid, [(0, t["primary"], 1), (0.5, t["neon"], 1), (1, t["soft"], 1)])
     return f"url(#{gid})"
 
 

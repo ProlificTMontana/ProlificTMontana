@@ -27,7 +27,7 @@ from pathlib import Path
 from xml.dom import minidom
 
 import content as C
-from design import SVG, brand_gradient, card, clip_round, fmt, glow, gradient, legible, text_width
+from design import SVG, brand_gradient, card, clip_round, fmt, glow, gradient, text_width
 
 QUERY = """
 query($login: String!) {
@@ -167,8 +167,8 @@ def render(s: Stats, theme: str) -> SVG:
     clip_round(doc, "cc", 0, 0, W, H, 18)
     card(doc, 0, 0, W, H, 18)
     doc.add('<g clip-path="url(#cc)">')
-    glow(doc, "g1", 900, H, 520, t["violet"], 0.9)
-    glow(doc, "g2", 0, 0, 380, t["red"], 0.6)
+    glow(doc, "g1", 900, H, 520, t["neon"], 0.9)
+    glow(doc, "g2", 0, 0, 380, t["neon"], 0.6)
     doc.add("</g>")
     brand = brand_gradient(doc, "brand")
 
@@ -199,15 +199,15 @@ def render(s: Stats, theme: str) -> SVG:
     for gy in (ay_top, (ay_top + ay_base) / 2, ay_base):
         doc.add(f'<path d="M{ax0} {fmt(gy)}H{ax1}" stroke="{t["border"]}" stroke-dasharray="{"0" if gy == ay_base else "2 5"}"/>')
     line = _smooth(pts)
-    gradient(doc, "area", [(0, t["violet"], 0.32), (1, t["violet"], 0)], x2=0, y2=1)
+    gradient(doc, "area", [(0, t["neon"], 0.32), (1, t["neon"], 0)], x2=0, y2=1)
     doc.add(f'<path d="{line}L{ax1} {ay_base}L{ax0} {ay_base}Z" fill="url(#area)"/>')
     doc.add(f'<path d="{line}" stroke="{brand}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>')
     pi = max(range(n), key=lambda i: s.weeks[i][1])
     px, py = pts[pi]
-    doc.add(f'<circle cx="{fmt(px)}" cy="{fmt(py)}" r="4.5" fill="{t["bg"]}" stroke="{t["mint"]}" stroke-width="2.2"/>')
+    doc.add(f'<circle cx="{fmt(px)}" cy="{fmt(py)}" r="4.5" fill="{t["bg"]}" stroke="{t["signal"]}" stroke-width="2.2"/>')
     lab = f"peak {s.weeks[pi][1]}"
     anchor = "end" if px > ax1 - 80 else "start"
-    doc.add(doc.text(px + (-10 if anchor == "end" else 10), py - 10, lab, "mono", 13, t["mint"], anchor=anchor))
+    doc.add(doc.text(px + (-10 if anchor == "end" else 10), py - 10, lab, "mono", 13, t["signal"], anchor=anchor))
     last_x = -99.0
     for i, (d, _) in enumerate(s.weeks):
         if i == 0 or d.month != s.weeks[i - 1][0].month:
@@ -219,10 +219,11 @@ def render(s: Stats, theme: str) -> SVG:
     # ---- languages
     ly = 272
     doc.add(doc.text(ax0, ly, "TOP LANGUAGES", "mono", 13, t["muted"], ls=1.4))
-    langs = s.languages[:6]
+    ramp = t["ramp"]
+    langs = [(name, ramp[i], p) for i, (name, _, p) in enumerate(s.languages[:6])]
     other = 1 - sum(p for _, _, p in langs)
     if other > 0.005:
-        langs = langs + [("Other", t["dim"], other)]
+        langs = langs + [("Other", ramp[-1], other)]
     bx, bw, by = ax0, ax1 - ax0, ly + 14
     clip_round(doc, "bar", bx, by, bw, 10, 5)
     doc.add('<g clip-path="url(#bar)">')
@@ -238,7 +239,7 @@ def render(s: Stats, theme: str) -> SVG:
         w = 16 + text_width(label, "mono", 13.5) + 22
         if x + w > ax1:
             x, y = ax0, y + 26
-        doc.add(f'<circle cx="{fmt(x + 5)}" cy="{fmt(y - 4)}" r="5" fill="{legible(colour, t["bg"], colour, 0)}"/>')
+        doc.add(f'<circle cx="{fmt(x + 5)}" cy="{fmt(y - 4)}" r="5" fill="{colour}"/>')
         doc.add(doc.spans(x + 16, y, [(name + " ", t["text"]), (f"{p * 100:.1f}%", t["muted"])], "mono", 13.5))
         x += w
 
