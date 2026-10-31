@@ -2,14 +2,14 @@
 
 **Location:** Pretoria, South Africa  
 **Contact:** tabwatony7@gmail.com  
-**Portfolio:** [ProlificTMontana](https://tony-github-io.vercel.app/)  
+**Portfolio:** [ProlificTMontana](https://tony-github-io.vercel.app/#projects)  
 **LinkedIn:** [tony-tabwa](https://www.linkedin.com/in/tony-tabwa-7145b0140)  
 **GitHub:** [ProlificTMontana](https://github.com/ProlificTMontana)  
 
 ---
 
 ## About Me
-I'm a 26-year-old **Cybersecurity Junior Analyst (Penetration Tester)** and **Full-Stack Engineer** based in Pretoria, South Africa. My passion lies in securing digital environments and building robust, user-friendly applications. I thrive on solving complex challenges and preventing issues before they arise.
+I'm a 26-year-old **Penetration Tester** and **Full-Stack Engineer** based in Pretoria, South Africa. My passion lies in securing digital environments and building robust, user-friendly applications. I thrive on solving complex challenges and preventing issues before they arise.
 
 ---
 
