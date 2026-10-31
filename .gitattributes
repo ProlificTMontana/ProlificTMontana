@@ -1,0 +1,3 @@
+assets/*.svg linguist-generated=true -diff
+profile/icons.json linguist-vendored=true
+profile/fonts/** linguist-vendored=true binary
