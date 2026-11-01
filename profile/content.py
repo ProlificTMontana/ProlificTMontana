@@ -189,9 +189,10 @@ EXPERIENCE = (
     },
     {
         "role": "Full-Stack Engineer",
-        "tag": "Product",
-        "summary": "Building and deploying full-stack platforms for businesses with hardened CI/CD and Microsoft 365 API integrations.",
+        "tag": "Compliance SaaS",
+        "summary": "Building SaaS compliance engines: multi-tenant, audit-ready platforms shipped through hardened CI/CD, with Microsoft 365 API integrations.",
         "bullets": (
+            "Architecting and building SaaS compliance engines that turn regulatory requirements (accreditation scope, staff credentials, assessment, moderation and certification) into auditable, multi-tenant workflows with tenant isolation enforced at the database layer.",
             "Implemented CI/CD pipelines with Git for version control in secure web app deployments, streamlining development cycles and reducing downtime.",
             "Developed and deployed full-stack web applications for small businesses, integrating Microsoft 365 APIs to optimize workflows and enhance data security.",
         ),
