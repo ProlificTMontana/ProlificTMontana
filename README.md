@@ -40,6 +40,7 @@
 <br>
 
 **Full-Stack Engineer** · _current_
+- Architecting and building SaaS compliance engines that turn regulatory requirements (accreditation scope, staff credentials, assessment, moderation and certification) into auditable, multi-tenant workflows with tenant isolation enforced at the database layer.
 - Implemented CI/CD pipelines with Git for version control in secure web app deployments, streamlining development cycles and reducing downtime.
 - Developed and deployed full-stack web applications for small businesses, integrating Microsoft 365 APIs to optimize workflows and enhance data security.
 
